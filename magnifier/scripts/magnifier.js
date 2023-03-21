@@ -2,12 +2,16 @@ jQuery(function () {
     /**
      * event listeners / extension logic
     */
-    $("*:not(body)").on("mouseenter", function (_) {
-        text = $(this).text();
+    $("*:not(body)").on("mouseenter", function (e) {
+        e.stopPropagation();
+
+        isImage = $(this).is('img');
+        content = isImage ? $(this).attr("src") : $(this).text();
     })
 
     $("*:not(body)").on("mouseleave", function (_) {
-        text = null;
+        isImage = false;
+        content = null;
     })
 
     $(document).on("keydown", function (e) {
@@ -50,26 +54,33 @@ jQuery(function () {
      * extension states and extracted functions.
     */
     let zoom = 1.0, scale = 1.0;
-    let textbox = false, text = null;
+    let textbox = false, isImage = false, content = null;
 
     function toggleTextbox () {
-        if (!text && !textbox) return;
+        if (!content && !textbox) return;
 
         const options = {
-            id: "magnifierDiv",
+            id: "magnifier",
             css: {
                 "position": "fixed",
-                "left": "500px",
-                "top": "200px",
+                "left": "50%",
+                "top": "50%",
+                "transform": "translate(-50%, -50%)",
                 "font-size": "30px",
                 "z-index": "10",
                 "background": "white",
+                "padding": "25px",
+                "border-radius": "10px",
+                "box-shadow": "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+                "width": isImage && "fit-content",
+                "height": isImage && "500px",
             }, 
-            text,
+            text: !isImage && content,
+            src: isImage && content,
         }
 
         // if textbox is true, remove textbox, else append
-        !(textbox = !textbox) ? $("#magnifierDiv").remove()
-        : $('body').append($("<div />", options));
+        !(textbox = !textbox) ? $("#magnifier").remove()
+        : $('body').append($(`<${isImage ? 'img' : 'div'} />`, options));
     }
 })
