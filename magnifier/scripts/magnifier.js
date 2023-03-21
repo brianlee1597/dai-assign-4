@@ -1,8 +1,39 @@
 jQuery(function () {
     let zoom = 1.0, scale = 1.0;
+    let textbox = false, text = '';
+
+    function toggleMagnifier () {
+        const options = {
+            id: "magnifierDiv",
+            css: {
+                "position": "fixed",
+                "left": "500px",
+                "top": "200px",
+                "font-size": "30px",
+                "z-index": "10",
+                "background": "white",
+            },
+            text
+        }
+
+        textbox && $("#magnifierDiv").remove() 
+        || $('body').append($("<div />", options));
+
+        textbox = !textbox;
+    }
+
+    $("*:not(body)").on("mouseenter", function (_) {
+        text = $(this).text();
+    })
 
     $(document).on("keydown", function (e) {
         e.preventDefault();
+
+        if (e.key == " ") {
+            toggleMagnifier();
+            return;
+        }
+
         const ZOOM = e.key == "-" ? -1 : e.key == "=" ? 1 : 0;
         const TSFM = e.key == "_" ? -1 : e.key == "+" ? 1 : 0;
 
