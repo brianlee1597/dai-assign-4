@@ -62,16 +62,6 @@ jQuery(function () {
         const options = {
             id: "magnifier",
             css: {
-                "position": "fixed",
-                "left": "50%",
-                "top": "50%",
-                "transform": "translate(-50%, -50%)",
-                "font-size": "30px",
-                "z-index": "10",
-                "background": "white",
-                "padding": "25px",
-                "border-radius": "10px",
-                "box-shadow": "rgba(149, 157, 165, 0.2) 0px 8px 24px",
                 "width": isImage && "fit-content",
                 "height": isImage && "500px",
             }, 
