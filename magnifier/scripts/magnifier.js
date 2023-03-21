@@ -19,7 +19,7 @@ jQuery(function () {
 
         // if key is space
         if (e.key == " ") {
-            toggleTextbox();
+            toggleMagnifier();
             return;
         }
 
@@ -56,7 +56,7 @@ jQuery(function () {
     let zoom = 1.0, scale = 1.0;
     let textbox = false, isImage = false, content = null;
 
-    function toggleTextbox () {
+    function toggleMagnifier () {
         if (!content && !textbox) return;
 
         const options = {
