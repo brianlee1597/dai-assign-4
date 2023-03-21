@@ -2,7 +2,17 @@ jQuery(function () {
     let zoom = 1.0, scale = 1.0;
     let textbox = false, text = '';
 
+    $("*:not(body)").on("mouseenter", function (_) {
+        text = $(this).text();
+    })
+
+    $("*:not(body)").on("mouseleave", function (_) {
+        text = '';
+    })
+
     function toggleMagnifier () {
+        if (!text && !textbox) return;
+
         const options = {
             id: "magnifierDiv",
             css: {
@@ -16,15 +26,11 @@ jQuery(function () {
             text
         }
 
-        textbox && $("#magnifierDiv").remove() 
-        || $('body').append($("<div />", options));
+        textbox ? $("#magnifierDiv").remove() 
+        : $('body').append($("<div />", options));
 
         textbox = !textbox;
     }
-
-    $("*:not(body)").on("mouseenter", function (_) {
-        text = $(this).text();
-    })
 
     $(document).on("keydown", function (e) {
         e.preventDefault();
@@ -52,8 +58,8 @@ jQuery(function () {
         if (docWidth > winWidth) {
             const LR = mouseX < 100 ? '-' : mouseX > winWidth - 100 ? '+' : null;
             
-            !LR && $('html, body').stop() 
-            || $('html, body').animate({ scrollLeft: `${LR}=50` }, 50);
+            !LR ? $('html, body').stop() 
+            : $('html, body').animate({ scrollLeft: `${LR}=50` }, 50);
         }
     });
 })
