@@ -7,7 +7,7 @@ jQuery(function () {
     })
 
     $("*:not(body)").on("mouseleave", function (_) {
-        text = '';
+        text = null;
     })
 
     $(document).on("keydown", function (e) {
@@ -50,7 +50,7 @@ jQuery(function () {
      * extension states and extracted functions.
     */
     let zoom = 1.0, scale = 1.0;
-    let textbox = false, text = '';
+    let textbox = false, text = null;
 
     function toggleTextbox () {
         if (!text && !textbox) return;
@@ -67,7 +67,7 @@ jQuery(function () {
             }, 
             text,
         }
-        
+
         // if textbox is true, remove textbox, else append
         !(textbox = !textbox) ? $("#magnifierDiv").remove()
         : $('body').append($("<div />", options));
