@@ -15,15 +15,16 @@ jQuery(function () {
         }
     })
 
-    // $(document).on("mousemove", function (e) {
-    //     e.preventDefault();
-    //     if ($(document).width() > $(window).width()) {
-    //         console.log(e.pageX);
-    //         // if (e.pageX - $('html, body').scrollLeft() <= 100) {
-    //         //     $('html, body').animate({scrollLeft: `-=50`}, 100);
-    //         // } else if ($(window).width() - e.pageX <= 100) {
-    //         //     $('html, body').animate({scrollLeft: `+=50`}, 100);
-    //         // }
-    //     }
-    // })
+    $(document).on('mousemove', function(e) {
+        const docWidth = $(document).width();
+        const winWidth = $(window).width();
+        const mouseX = e.pageX - $(this).scrollLeft();
+        
+        if (docWidth > winWidth) {
+            const LR = mouseX < 100 ? '-' : mouseX > winWidth - 100 ? '+' : null;
+            
+            !LR ? $('html, body').stop() :
+            $('html, body').animate({ scrollLeft: `${LR}=50` }, 50);
+        }
+    });
 })
