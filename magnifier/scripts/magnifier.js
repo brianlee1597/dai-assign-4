@@ -6,13 +6,11 @@ jQuery(function () {
         const ZOOM = e.key == "-" ? -1 : e.key == "=" ? 1 : 0;
         const TSFM = e.key == "_" ? -1 : e.key == "+" ? 1 : 0;
 
-        $("body").css("zoom", `${zoom += ZOOM * 0.1}`)
-        $("body").css("transform",  `scale(${(scale += TSFM * 0.1)})`);
-
-        if (TSFM) {
-            $("body").css("position", "relative");
-            $("body").css("transform-origin", "left top");
-        }
+        $("body")
+            .css("position", "relative")
+            .css("transform-origin", "left top")
+            .css("zoom", `${zoom += ZOOM * 0.1}`)
+            .css("transform",  `scale(${(scale += TSFM * 0.1)})`);
     })
 
     $(document).on('mousemove', function(e) {
