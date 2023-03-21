@@ -23,8 +23,8 @@ jQuery(function () {
         if (docWidth > winWidth) {
             const LR = mouseX < 100 ? '-' : mouseX > winWidth - 100 ? '+' : null;
             
-            !LR ? $('html, body').stop() :
-            $('html, body').animate({ scrollLeft: `${LR}=50` }, 50);
+            !LR && $('html, body').stop() 
+            || $('html, body').animate({ scrollLeft: `${LR}=50` }, 50);
         }
     });
 })
